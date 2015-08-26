@@ -29,7 +29,7 @@ bmiTell weight height
  | bmi <= normal = "Looking Good!"
  | bmi <= overweight = "You're overweight.  Let's work out together!"
  | otherwise   = "You're obese.  Go see a doctor."
- where bmi = weight / height ^ 2
+ where bmi = weight / height ^ (2 :: Integer)
        (skinny, normal, overweight) = (18.5, 25.0, 30.0)
 
 max' :: (Ord a) => a -> a -> a
@@ -50,21 +50,14 @@ initials firstname lastname = [f] ++ ". " ++ [l] ++ "."
 
 calcBmis :: [(Double, Double)] -> [Double]
 calcBmis xs = [bmi w h | (w,h) <- xs]
- where bmi weight height = weight / height ^ 2
+ where bmi weight height = weight / height ^ (2 :: Integer)
 
 cylinder :: Double -> Double -> Double
 cylinder r h =
  let sideArea = 2 * pi * r * h
-     topArea = pi * r ^ 2
+     topArea = pi * r ^ (2 :: Integer)
  in sideArea + 2 * topArea
 
 calcBmis' :: [(Double, Double)] -> [Double]
-calcBmis' xs = [bmi | (w,h) <- xs, let bmi = w / h ^ 2]
+calcBmis' xs = [bmi | (w,h) <- xs, let bmi = w / h ^ (2 :: Integer)]
 
-maximum' :: (Ord a) => [a] -> a
-maximum' [] = error "Maximum of an empty list!"
-maximum' [x] = x
-maximum' (x:xs) 
- | x > maxTail = x
- | otherwise = maxTail
- where maxTail = maximum' xs
